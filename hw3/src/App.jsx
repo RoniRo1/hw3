@@ -4,6 +4,8 @@ import './App.css'
 import Register from './FuncComps/Register'
 import LogIn from './FuncComps/LogIn'
 import Profile from './FuncComps/Profile'
+import EditDetails from './FuncComps/EditDetails'
+import SystemAdmin from './FuncComps/SystemAdmin'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,9 +13,11 @@ function App() {
   return (
     <>
     
+    <LogIn/>
+    <br />
+    <br />
+    <br />
 
-    <Profile/>
-     
     </>
   )
 }

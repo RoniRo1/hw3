@@ -33,7 +33,11 @@ export default function Profile() {
   sessionStorage.clear();
   // מעבר לעמוד login
  }
+  function EditDetails (){
 
+    //לעשות משתנה שיחזיר קומפטננטה של edit?
+
+}
  console.log(israeliDate);
  console.log(users_load);
 
@@ -64,13 +68,17 @@ export default function Profile() {
                 {israeliDate}
               </Typography>
 
-              <Button>עדכון פרטים</Button>
+              <Button onClick={EditDetails}>עדכון פרטים</Button>
               <Button ><a href="https://www.crazygames.com/game/diner-dash">למשחק</a></Button>
               <Button onClick={logoutUser}>התנתק</Button>
+
+               
             </Grid>
           </Grid>
         </CardContent>
-      </Card>
+      </Card> 
+      
+      {/*להוסיף כאן את הקומפטננטה של העריכה...*/}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 
 export default function LogIn() {
-  let users_load = {};
+  let users_load =[];
 
   //הכנת מערך ליוזר
   let arr = {
@@ -24,13 +24,24 @@ export default function LogIn() {
 
   users_load = JSON.parse(localStorage.getItem("Users_load"));
 
-  function loginUser() {
-    if (users_load[userState.username] != undefined) {
-      if (users_load[userState.username].password == userState.password) {
+  function loginUser() { 
+    
+
+    if (userState.username=="admin" && userState.password=="ad12343211ad"){
+
+      //מעבר לאדמין
+      console.log("אדמין")
+    }
+    console.log(users_load.find((x)=> x.username==userState.username))
+    let user = users_load.find((x)=> x.username==userState.username)
+    console.log(user)
+  //  if (users_load.find((x)=> x.username=useState.username)) {
+    if (user!=undefined) {
+      if (user.password == userState.password) {
         console.log("hey");
         sessionStorage.setItem(
           "current",
-          JSON.stringify(users_load[userState.username])
+          JSON.stringify(user)
         );
         // מעבר לעמוד משתמש
       } else {
