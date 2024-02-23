@@ -310,7 +310,7 @@ export default function Register() {
               onChange={(e) => (userArr.img = e.target.files[0])}
               type="file"
             />
-
+  
             <Alert severity="error" style={{ visibility: values.img }}>
               {errors.img.massege}
             </Alert>

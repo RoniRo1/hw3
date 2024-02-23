@@ -46,6 +46,7 @@ export default function LogIn() {
     <>
       <h1>Sign In</h1>
       <br />
+      {/*שם משתמש*/}
       <Grid item xs={8}>
         <TextField
           required
@@ -57,6 +58,7 @@ export default function LogIn() {
           שם משתמש לא קיים, נא להרשם
         </Alert>{" "}
       </Grid>
+       {/*סיסמה*/}
       <Grid item xs={8}>
         <TextField
           required

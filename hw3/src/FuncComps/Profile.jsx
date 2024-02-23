@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
+import { useState, useEffect } from "react";
 
 export default function Profile() {
   const bull = (
@@ -16,20 +17,26 @@ export default function Profile() {
       •
     </Box>
  );
+ let user = JSON.parse(sessionStorage.getItem("current"))
+ let users_load = {};
+ var dt = new Date(user.birthDate);
 
-   //הכנת מערך ליוזר 
-   const user = {
-    firstName: "בלה",
-    lastName: "בלה",
-    password: "",
-    email: "",
-    img: "",
-    birthDate: "",
-    city: "",
-    street: "",
-    house: "",
-    username: "",
-  };
+ function getMonthName(monthIndex){
+  var monthsNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  return monthsNames[monthIndex];
+}
+
+ var israeliDate = dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
+
+ //התנתקות
+ function logoutUser(){
+  sessionStorage.clear();
+  // מעבר לעמוד login
+ }
+
+ console.log(israeliDate);
+ console.log(users_load);
+
 
   return (
     <div style={{ direction: "rtl", margin: "0 auto" }}>
@@ -49,17 +56,17 @@ export default function Profile() {
                 {/* be{bull}nev{bull}o{bull}lent*/}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                email
-              </Typography>
+              {user.email}
+               </Typography>
               <Typography variant="body2">
-                כתובת
+              {user.street  + " " +user.house +", "+ user.city}
                 <br />
-                יום הולדת
+                {israeliDate}
               </Typography>
 
               <Button>עדכון פרטים</Button>
-              <Button>למשחק</Button>
-              <Button>התנתק</Button>
+              <Button ><a href="https://www.crazygames.com/game/diner-dash">למשחק</a></Button>
+              <Button onClick={logoutUser}>התנתק</Button>
             </Grid>
           </Grid>
         </CardContent>
