@@ -1,9 +1,8 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
 import Alert from "@mui/material/Alert";
-import TextField from "@mui/material/TextField";
-import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import React, { useState } from "react";
 
 export default function LogIn() {
   let users_load =[];
@@ -55,7 +54,7 @@ export default function LogIn() {
   console.log(users_load);
   return (
     <>
-      <h1>Sign In</h1>
+      <h1>Log In</h1>
       <br />
       {/*שם משתמש*/}
       <Grid item xs={8}>
@@ -89,7 +88,7 @@ export default function LogIn() {
           sx={{ mt: 3, mb: 2 }}
           onClick={loginUser}
         >
-          Sign In
+          Log In
         </Button>
         {/* להוסיף כפתור מעבר להרשמה */}
       </Grid>

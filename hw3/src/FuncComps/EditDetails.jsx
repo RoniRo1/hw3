@@ -88,7 +88,7 @@ export default function EditDetails()  {
     const [userArr, setUserArr] = useState({ ...user });
     const [values, setValues] = useState({ ...arr });
     const [password2, setPassword2] = useState({});
-    let  users_load={};
+    let  users_load=[];
 
     // מערך ערים לכפתור
     let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
@@ -183,7 +183,7 @@ export default function EditDetails()  {
       if (counter == 11) {console.log(userArr)
       console.log(users_load)
       users_load={...users_load,[userArr.username]:{...userArr}}
-      
+      // לשנותתתת
       console.log(users_load)
       localStorage.setItem("Users_load",JSON.stringify(users_load) )  
         // לעבור למסך הבא....

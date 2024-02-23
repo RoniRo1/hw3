@@ -9,16 +9,9 @@ import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 
 export default function Profile() {
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-    >
-      •
-    </Box>
- );
+ 
  let user = JSON.parse(sessionStorage.getItem("current"))
- let users_load = {};
+
  var dt = new Date(user.birthDate);
 
  function getMonthName(monthIndex){
@@ -30,6 +23,8 @@ export default function Profile() {
 
  //התנתקות
  function logoutUser(){
+
+  // להוסיף בדיקה האם מחובר, כתוב בדרישות
   sessionStorage.clear();
   // מעבר לעמוד login
  }
@@ -39,7 +34,7 @@ export default function Profile() {
 
 }
  console.log(israeliDate);
- console.log(users_load);
+
 
 
   return (
@@ -57,7 +52,7 @@ export default function Profile() {
             <Grid item xs={8}>
               <Typography variant="h9">
                {user.firstName +" "+user.lastName}
-                {/* be{bull}nev{bull}o{bull}lent*/}
+             
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
               {user.email}

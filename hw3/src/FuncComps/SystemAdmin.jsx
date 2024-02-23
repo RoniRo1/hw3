@@ -50,27 +50,32 @@ export default function SystemAdmin() {
       console.log(users_load)
    
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} style={{direction:"rtl"}}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                <StyledTableCell align="right">Calories</StyledTableCell>
-                <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                <StyledTableCell>תמוונה</StyledTableCell>
+                <StyledTableCell align="right">שם מלא</StyledTableCell>
+                <StyledTableCell align="right">תאריך לידה</StyledTableCell>
+                <StyledTableCell align="right">כתובת</StyledTableCell>
+                <StyledTableCell align="right">דואר אלקטרוני</StyledTableCell>
+                <StyledTableCell align="right">עריכה/מחיקה</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
+              {users_load.map((row) => (
+                <StyledTableRow key={users_load.firstName}>
                   <StyledTableCell component="th" scope="row">
                     {row.name}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                  <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                  <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                  <StyledTableCell align="right">{row.firstName} {row.lastName}</StyledTableCell>
+                  <StyledTableCell align="right">{row.birthDate}</StyledTableCell>
+                  <StyledTableCell align="right">{row.street} {row.house}, {row.city}</StyledTableCell>
+                  <StyledTableCell align="right">{row.email}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <input type="button" />
+                    <input type="button" />
+                    </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

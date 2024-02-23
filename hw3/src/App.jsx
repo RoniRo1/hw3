@@ -13,7 +13,7 @@ function App() {
   return (
     <>
     
-    <LogIn/>
+    <EditDetails/>
     <br />
     <br />
     <br />
