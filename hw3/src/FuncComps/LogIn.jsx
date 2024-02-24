@@ -5,9 +5,9 @@ import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-export default function LogIn() {
-  let users_load =[];
-
+export default function LogIn(props) {
+  let users_load =props.load_users;
+  console.log(users_load)
   //הכנת מערך ליוזר
   let arr = {
     password: "hidden",
@@ -22,7 +22,7 @@ export default function LogIn() {
   const [values, setValues] = useState({ ...arr });
   const [userState, setUser] = useState({ ...user });
   const navigate = useNavigate();
-  users_load = JSON.parse(localStorage.getItem("Users_load"));
+  //users_load = JSON.parse(localStorage.getItem("Users_load"));
 
   function loginUser() { 
     

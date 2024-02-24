@@ -1,14 +1,18 @@
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
 import { Input, checkboxClasses } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
-import { useNavigate } from 'react-router-dom';
+
+
+
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -22,7 +26,8 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function Register() {
+export default function Register(props) {
+ 
   const navigate = useNavigate();
   // מערך ערים 
   let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
@@ -61,7 +66,7 @@ export default function Register() {
   const [password2, setPassword2] = useState({});
   
   
-  let users_load = [];
+  //let users_load = [];
 
 
   // לחיצה על כתפור הרשמה
@@ -149,18 +154,19 @@ export default function Register() {
    
     // אם כל הנתונים שהוכנסו תקינים
     if (counter == 11) { 
-      users_load = [...users_load, { ...userArr }];
-      localStorage.setItem("Users_load", JSON.stringify(users_load));
-      navigate('/')
+     // users_load = [...users_load, { ...userArr }];
+     // localStorage.setItem("Users_load", JSON.stringify(users_load));
+     props.sendUser(userArr)
+     navigate('/')
     }
   }
 
 
-  useEffect(() => {
-    if (localStorage.getItem("Users_load") != null) {
-      users_load = JSON.parse(localStorage.getItem("Users_load"));
+ /*  useEffect(() => {
+    //if (localStorage.getItem("Users_load") != null) {
+     // users_load = JSON.parse(localStorage.getItem("Users_load"));
     }
-  });
+  }); */
 
   return (
     <div>
@@ -307,8 +313,8 @@ export default function Register() {
               <VisuallyHiddenInput
                 type="file"
                 accept="image/jpg, image/jpeg"
-                onChange={(e) => {
-                  let imgFromInput = e.target.files[0];
+                onChange={(e) => {  userArr.img="ב"
+             /*      let imgFromInput = e.target.files[0];
 
                   let reader = new FileReader();
                   reader.addEventListener("load", () => {
@@ -317,7 +323,7 @@ export default function Register() {
                   });
                   if (imgFromInput) {
                     reader.readAsDataURL(imgFromInput);
-                  }
+                  } */
                 }}
               />
             </Button>
