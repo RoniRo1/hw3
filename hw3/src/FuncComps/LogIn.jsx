@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function LogIn() {
   let users_load =[];
@@ -20,7 +21,7 @@ export default function LogIn() {
 
   const [values, setValues] = useState({ ...arr });
   const [userState, setUser] = useState({ ...user });
-
+  const navigate = useNavigate();
   users_load = JSON.parse(localStorage.getItem("Users_load"));
 
   function loginUser() { 
@@ -30,19 +31,23 @@ export default function LogIn() {
 
       //מעבר לאדמין
       console.log("אדמין")
+      navigate('/systemAdmin')
     }
-    console.log(users_load.find((x)=> x.username==userState.username))
+   // console.log(users_load.find((user)=> user.username==userState.username))
+   
     let user = users_load.find((x)=> x.username==userState.username)
     console.log(user)
   //  if (users_load.find((x)=> x.username=useState.username)) {
-    if (user!=undefined) {
+  
+  
+  if (user!=undefined) {
       if (user.password == userState.password) {
         console.log("hey");
         sessionStorage.setItem(
           "current",
           JSON.stringify(user)
         );
-        // מעבר לעמוד משתמש
+        navigate('/profile')
       } else {
         arr.password = "visible";
       }
@@ -89,6 +94,18 @@ export default function LogIn() {
           onClick={loginUser}
         >
           Log In
+        </Button>
+        {/* להוסיף כפתור מעבר להרשמה */}
+      </Grid>
+      <Grid item xs={8}>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={() => navigate('/register')}
+        >
+          Register
         </Button>
         {/* להוסיף כפתור מעבר להרשמה */}
       </Grid>

@@ -3,57 +3,36 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
-import * as React from "react";
 import Grid from "@mui/material/Grid";
 import { Input, checkboxClasses } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { styled } from "@mui/material/styles";
+import { useNavigate } from 'react-router-dom';
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 export default function Register() {
-  // מערך שגיאות
-  let errors = {
-    firstName: {
-      massege: "invalid First name",
-      valid: /^[a-zA-Z]+$/ 
-      // לא צריך regexp אולי לוותר על 
-    },
-    lastName: {
-      massege: "invalid Last name",
-      valid: /^[a-zA-Z]+$/,
-    },
-    password: {
-      massege:
-        "password need to be 7-12 and contain upper letter, 0-9, <>!@#$%^&*()_? ",
-      valid: new RegExp(
-        /^(?=.*[A-Z])(?=.*[0-9])(?=.*[<>!@#$%^&*()_?]).{7,12}$/
-      ),
-    },
-    password2: { massege: "not the same one" },
-    email: {
-      massege: "example@example.com",
-      valid: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[com]{3}$/
-     //   "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-z]+)*$" לא עובד
-     //מסתבר שלא צריך regexp??
-      ,
-    },
-    username: {
-      massege: "a-z, numbers and specail characters only and up to 60",
-      valid: new RegExp("^[a-zA-Z0-9!@#$%^&*()_></.']+$"),
-    },
-    street: { massege: " רק בעברית", valid: new RegExp("^[\u0590-\u05FF ]+$") },
-    birthDate: { massege: "חייב להיות מעל 18 ומתחת ל120" },
-    house: { massege: "מספר חיובי בלבד", valid: new RegExp("^[1-9]+[0-9]*$") },
-    img: { massege: "נא להעלות תמונה" },
-    city: { massege: "נא לבחור עיר מהרשימה" },
-  };
-
- 
-  //הכנת מערך ליוזר 
+  const navigate = useNavigate();
+  // מערך ערים 
+  let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
+  //הכנת מערך ליוזר
   let user = {
     firstName: "",
     lastName: "",
     password: "",
     email: "",
-    img: "x.jpg",
+    img: "",
     birthDate: "",
     city: "",
     street: "",
@@ -80,49 +59,45 @@ export default function Register() {
   const [userArr, setUserArr] = useState({ ...user });
   const [values, setValues] = useState({ ...arr });
   const [password2, setPassword2] = useState({});
-  let  users_load=[];
- 
-  // מערך ערים לכפתור
-  let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
- 
- 
+  
+  
+  let users_load = [];
+
+
   // לחיצה על כתפור הרשמה
   function registerUser() {
-   
-    let arr = { ...values },
-   
-    counter = 0;
-   //לבדוק האם קיים יוזר?
-    if (!errors.firstName.valid.test(userArr.firstName))
-      arr.firstName = "visible";
+  
+    let arr = { ...values }, counter = 0;
+
+    //לבדוק האם קיים יוזר?
+    if (!/^[a-zA-Z]+$/.test(userArr.firstName)) arr.firstName = "visible";
     else {
       arr.firstName = "hidden";
       counter++;
     }
 
-    if (!errors.lastName.valid.test(userArr.lastName) || userArr.lastName == "")
+    if (!/^[a-zA-Z]+$/.test(userArr.lastName) || userArr.lastName == "")
       arr.lastName = "visible";
     else {
       arr.lastName = "hidden";
       counter++;
     }
 
-    if (!errors.email.valid.test(userArr.email) || userArr.email == "")
+    if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[com]{3}$/.test(userArr.email) || userArr.email == "" )
       arr.email = "visible";
     else {
       arr.email = "hidden";
       counter++;
     }
 
-    if ( !errors.username.valid.test(userArr.username) ||  userArr.username == "" ||userArr.username.length > 60 )
+    if ( !/^[a-zA-Z0-9!@#$%^&*()_></.']{1,60}$/.test(userArr.username) || userArr.username == "")
       arr.username = "visible";
-
     else {
       arr.username = "hidden";
       counter++;
     }
 
-    if (!errors.password.valid.test(userArr.password) || userArr.password == "")
+    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[<>.,{}!@#$%^&*()_?]).{7,12}$/.test( userArr.password) ||userArr.password == "")
       arr.password = "visible";
     else {
       arr.password = "hidden";
@@ -135,7 +110,7 @@ export default function Register() {
       counter++;
     }
 
-    if (!errors.street.valid.test(userArr.street) || userArr.street == "")
+    if (!/^[\u0590-\u05FF ]+$/.test(userArr.street) || userArr.street == "")
       arr.street = "visible";
     else {
       arr.street = "hidden";
@@ -151,7 +126,7 @@ export default function Register() {
       counter++;
     }
 
-    if (!errors.house.valid.test(userArr.house) || userArr.house == "")
+    if (!/^[1-9]+[0-9]*$/.test(userArr.house) || userArr.house == "")
       arr.house = "visible";
     else {
       arr.house = "hidden";
@@ -172,52 +147,27 @@ export default function Register() {
 
     setValues(arr);
    
-    if (counter == 11) {
-    console.log(users_load)
-    users_load=[...users_load,{...userArr}]
-    
-    console.log(users_load)
-    localStorage.setItem("Users_load",JSON.stringify(users_load) )  
-      // לעבור למסך הבא....
+    // אם כל הנתונים שהוכנסו תקינים
+    if (counter == 11) { 
+      users_load = [...users_load, { ...userArr }];
+      localStorage.setItem("Users_load", JSON.stringify(users_load));
+      navigate('/')
     }
-  
   }
 
-  //const fileReader = new FileReader();
 
-  // פונקציית חישוב גיל
-  const calculate_age = (e) => {
-    var today = new Date();
-    var birthDate = new Date(e); // create a date object directly from `dob1` argument
-    var age_now = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age_now--;
+  useEffect(() => {
+    if (localStorage.getItem("Users_load") != null) {
+      users_load = JSON.parse(localStorage.getItem("Users_load"));
     }
-    //console.log(age_now);
-    return age_now;
-  };
-
-  useEffect (()=>{
- 
-
-      if (localStorage.getItem("Users_load") != null) {
-        users_load = JSON.parse(localStorage.getItem("Users_load"));
-       
-      }
-    
-    
-    })
-  
+  });
 
   return (
     <div>
       <Box sx={{ mt: 1, width: "75%" }}>
-
-        <h1 style={{ width: "60%" }}>Sign In</h1>
+        <h1 style={{ width: "60%" }}>Sign Up</h1>
 
         <Grid container>
-
           {/*firstName*/}
           <Grid item xs={4} style={{ margin: 3 }}>
             <TextField
@@ -227,8 +177,7 @@ export default function Register() {
               onChange={(e) => (userArr.firstName = e.target.value)}
             />
             <Alert severity="error" style={{ visibility: values.firstName }}>
-             
-              {errors.firstName.massege}
+              Invalid First name
             </Alert>
           </Grid>
 
@@ -241,8 +190,7 @@ export default function Register() {
               onChange={(e) => (userArr.lastName = e.target.value)}
             />
             <Alert severity="error" style={{ visibility: values.lastName }}>
-            
-              {errors.lastName.massege}
+              Invalid Last name
             </Alert>
           </Grid>
 
@@ -255,8 +203,7 @@ export default function Register() {
               onChange={(e) => (userArr.email = e.target.value)}
             />
             <Alert severity="error" style={{ visibility: values.email }}>
-              
-              {errors.email.massege}
+              example@example.com
             </Alert>
           </Grid>
 
@@ -269,7 +216,7 @@ export default function Register() {
               onChange={(e) => (userArr.username = e.target.value)}
             />
             <Alert severity="error" style={{ visibility: values.username }}>
-              {errors.username.massege}
+              Can contain a-z, numbers and special character up to 60
             </Alert>
           </Grid>
 
@@ -279,11 +226,12 @@ export default function Register() {
               required
               fullWidth
               label=" Password"
-              autoComplete="new-password"
+              //autoComplete="new-password"
               onBlur={(e) => (userArr.password = e.target.value)}
             />
             <Alert severity="error" style={{ visibility: values.password }}>
-              {errors.password.massege}
+              Need to contain upper letter, number and special character and
+              7-12.
             </Alert>
           </Grid>
 
@@ -293,28 +241,14 @@ export default function Register() {
               required
               fullWidth
               label="Confirm Password"
-              onBlur={(e) => (setPassword2(e.target.value))}
+              onBlur={(e) => setPassword2(e.target.value)}
             />
             <Alert severity="error" style={{ visibility: values.password2 }}>
-              {errors.password2.massege}
+              Not the same Password
             </Alert>
           </Grid>
 
-          {/*img*/}
-          <Grid item xs={8} style={{ margin: 3 }}>
-            <Input
-              required
-              fullWidth
-              autoComplete="image"
-              inputProps={{ accept: "image/*" }}
-              onChange={(e) => (userArr.img = e.target.files[0])}
-              type="file"
-            />
-
-            <Alert severity="error" style={{ visibility: values.img }}>
-              {errors.img.massege}
-            </Alert>
-          </Grid>
+        
 
           {/*city*/}
           <Grid item xs={8} style={{ margin: 3 }}>
@@ -328,7 +262,7 @@ export default function Register() {
               }}
             />
             <Alert severity="error" style={{ visibility: values.city }}>
-              {errors.city.massege}
+             Please choose a city from the list
             </Alert>
           </Grid>
 
@@ -342,7 +276,7 @@ export default function Register() {
             />
 
             <Alert severity="error" style={{ visibility: values.street }}>
-              {errors.street.massege}
+              נא להכניס רחוב בעברית בלבד
             </Alert>
           </Grid>
 
@@ -356,13 +290,45 @@ export default function Register() {
             />
 
             <Alert severity="error" style={{ visibility: values.house }}>
-              {errors.house.massege}
+              Please enter a postive number
             </Alert>
           </Grid>
+          {/*img*/}
+          <Grid item xs={4} style={{ margin: 3 }}>
+            <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              fullWidth
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload Image
+              <VisuallyHiddenInput
+                type="file"
+                accept="image/jpg, image/jpeg"
+                onChange={(e) => {
+                  let imgFromInput = e.target.files[0];
 
+                  let reader = new FileReader();
+                  reader.addEventListener("load", () => {
+                    // convert image file to base64 string and save to localStorage
+                    userArr.img = reader.result;
+                  });
+                  if (imgFromInput) {
+                    reader.readAsDataURL(imgFromInput);
+                  }
+                }}
+              />
+            </Button>
+
+            <Alert severity="error" style={{ visibility: values.img }}>
+              Upload Image jpeg or jpg.
+            </Alert>
+          </Grid>
           {/* תאריך לידה*/}
 
-          <Grid item xs={8} sm={6}>
+          <Grid item xs={4} >
             <input
               style={{ margin: 5 }}
               type="date"
@@ -372,8 +338,7 @@ export default function Register() {
             />
             :תאריך לידה
             <Alert severity="error" style={{ visibility: values.birthDate }}>
-              
-              {errors.birthDate.massege}
+             Must be 18-120 
             </Alert>
           </Grid>
           <Grid item xs={8}>
@@ -384,12 +349,24 @@ export default function Register() {
               sx={{ mt: 3, mb: 2 }}
               onClick={registerUser}
             >
-              Sign Up
+             Register
             </Button>
           </Grid>
         </Grid>
       </Box>
-   <img src={userArr.img["name"]} alt="" />
+      
     </div>
   );
 }
+
+// פונקציית חישוב גיל
+  const calculate_age = (e) => {
+    var today = new Date();
+    var birthDate = new Date(e);
+    var age_now = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age_now--;
+    }
+    return age_now;
+  };

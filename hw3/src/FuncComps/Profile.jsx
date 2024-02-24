@@ -7,20 +7,22 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
+import EditDetails from "./EditDetails";
 
 export default function Profile() {
  
  let user = JSON.parse(sessionStorage.getItem("current"))
 
- var dt = new Date(user.birthDate);
+ let dt = new Date(user.birthDate);
 
  function getMonthName(monthIndex){
   var monthsNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
   return monthsNames[monthIndex];
 }
 
- var israeliDate = dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
+ let israeliDate = dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
 
+ 
  //התנתקות
  function logoutUser(){
 
@@ -28,7 +30,9 @@ export default function Profile() {
   sessionStorage.clear();
   // מעבר לעמוד login
  }
-  function EditDetails (){
+ 
+ 
+ function EditDetailss (){
 
     //לעשות משתנה שיחזיר קומפטננטה של edit?
 
@@ -46,7 +50,7 @@ export default function Profile() {
               <Avatar
                 sx={{ width: 100, height: 100 }}
                 alt="Remy Sharp"
-                src="https://www.wikihow.com/images/9/90/What_type_of_person_are_you_quiz_pic.png"
+                src={user.img}
               />
             </Grid>
             <Grid item xs={8}>
@@ -63,7 +67,7 @@ export default function Profile() {
                 {israeliDate}
               </Typography>
 
-              <Button onClick={EditDetails}>עדכון פרטים</Button>
+              <Button onClick={EditDetailss}>עדכון פרטים</Button>
               <Button ><a href="https://www.crazygames.com/game/diner-dash">למשחק</a></Button>
               <Button onClick={logoutUser}>התנתק</Button>
 
@@ -72,7 +76,7 @@ export default function Profile() {
           </Grid>
         </CardContent>
       </Card> 
-      
+     <EditDetails/>
       {/*להוסיף כאן את הקומפטננטה של העריכה...*/}
     </div>
   );

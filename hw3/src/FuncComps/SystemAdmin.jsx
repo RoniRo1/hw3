@@ -7,7 +7,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Avatar from "@mui/material/Avatar";
+
+
+
 export default function SystemAdmin() {
+  
+  
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: theme.palette.common.black,
@@ -26,26 +32,7 @@ export default function SystemAdmin() {
         '&:last-child td, &:last-child th': {
           border: 0,
         },
-      }));
-      
-      function createData(
-        name= "String",
-        calories= "number",
-        fat="number",
-        carbs= "number",
-        protein= 'number',
-      ) {
-        return { name, calories, fat, carbs, protein };
-      }
-      
-      const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
-      ];
-      
+      }));        
       let users_load = JSON.parse(localStorage.getItem("Users_load"));
       console.log(users_load)
    
@@ -64,10 +51,12 @@ export default function SystemAdmin() {
             </TableHead>
             <TableBody>
               {users_load.map((row) => (
-                <StyledTableRow key={users_load.firstName}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
+                <StyledTableRow key={row.firstName}>
+                  <StyledTableCell component="th" scope="row">   <Avatar
+                sx={{ width: 50, height: 50 }}
+                alt="Remy Sharp"
+                src={row.img}
+              /></StyledTableCell>
                   <StyledTableCell align="right">{row.firstName} {row.lastName}</StyledTableCell>
                   <StyledTableCell align="right">{row.birthDate}</StyledTableCell>
                   <StyledTableCell align="right">{row.street} {row.house}, {row.city}</StyledTableCell>
