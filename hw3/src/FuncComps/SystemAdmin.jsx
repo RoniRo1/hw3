@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 
 
 
-export default function SystemAdmin() {
+export default function SystemAdmin(props) {
   
   
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -33,8 +33,9 @@ export default function SystemAdmin() {
           border: 0,
         },
       }));        
-      let users_load = JSON.parse(localStorage.getItem("Users_load"));
-      console.log(users_load)
+     // let users_load = JSON.parse(localStorage.getItem("Users"));
+     let users_load =props.load_users;
+     console.log(users_load)
    
     return (
         <TableContainer component={Paper} style={{direction:"rtl"}}>

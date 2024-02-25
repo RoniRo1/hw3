@@ -46,7 +46,7 @@ function App() {
     <Routes>
         <Route path="/" element={<LogIn load_users={users}/>} />
         <Route path="/register" element={<Register sendUser={loadUsers}/>} />
-        <Route path="/systemAdmin" element={<SystemAdmin/>} />
+        <Route path="/systemAdmin" element={<SystemAdmin load_users={users}/>} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
 
