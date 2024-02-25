@@ -13,7 +13,7 @@ import { styled } from "@mui/material/styles";
 
 
 
-
+// כפתור העלאת תמונה
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -46,7 +46,7 @@ export default function Register(props) {
   };
 
   // מערך להציג פסקת שגיאה
-  let arr = {
+  let error = {
     firstName: "hidden",
     lastName: "hidden",
     password: "hidden",
@@ -62,7 +62,7 @@ export default function Register(props) {
 
   //states...
   const [userArr, setUserArr] = useState({ ...user });
-  const [values, setValues] = useState({ ...arr });
+  const [errors, setErrors] = useState({ ...error });
   const [password2, setPassword2] = useState({});
   
   
@@ -72,7 +72,7 @@ export default function Register(props) {
   // לחיצה על כתפור הרשמה
   function registerUser() {
   
-    let arr = { ...values }, counter = 0;
+    let arr = { ...errors }, counter = 0;
 
     //לבדוק האם קיים יוזר?
     if (!/^[a-zA-Z]+$/.test(userArr.firstName)) arr.firstName = "visible";
@@ -150,8 +150,8 @@ export default function Register(props) {
       counter++;
     }
 
-    setValues(arr);
-   
+    setErrors(arr);
+    
     // אם כל הנתונים שהוכנסו תקינים
     if (counter == 11) { 
      // users_load = [...users_load, { ...userArr }];
@@ -182,7 +182,7 @@ export default function Register(props) {
               label="First Name"
               onChange={(e) => (userArr.firstName = e.target.value)}
             />
-            <Alert severity="error" style={{ visibility: values.firstName }}>
+            <Alert severity="error" style={{ visibility: errors.firstName }}>
               Invalid First name
             </Alert>
           </Grid>
@@ -195,7 +195,7 @@ export default function Register(props) {
               label="Last Name"
               onChange={(e) => (userArr.lastName = e.target.value)}
             />
-            <Alert severity="error" style={{ visibility: values.lastName }}>
+            <Alert severity="error" style={{ visibility: errors.lastName }}>
               Invalid Last name
             </Alert>
           </Grid>
@@ -208,7 +208,7 @@ export default function Register(props) {
               label="Email Address"
               onChange={(e) => (userArr.email = e.target.value)}
             />
-            <Alert severity="error" style={{ visibility: values.email }}>
+            <Alert severity="error" style={{ visibility: errors.email }}>
               example@example.com
             </Alert>
           </Grid>
@@ -221,7 +221,7 @@ export default function Register(props) {
               label="username"
               onChange={(e) => (userArr.username = e.target.value)}
             />
-            <Alert severity="error" style={{ visibility: values.username }}>
+            <Alert severity="error" style={{ visibility: errors.username }}>
               Can contain a-z, numbers and special character up to 60
             </Alert>
           </Grid>
@@ -235,7 +235,7 @@ export default function Register(props) {
               //autoComplete="new-password"
               onBlur={(e) => (userArr.password = e.target.value)}
             />
-            <Alert severity="error" style={{ visibility: values.password }}>
+            <Alert severity="error" style={{ visibility: errors.password }}>
               Need to contain upper letter, number and special character and
               7-12.
             </Alert>
@@ -249,7 +249,7 @@ export default function Register(props) {
               label="Confirm Password"
               onBlur={(e) => setPassword2(e.target.value)}
             />
-            <Alert severity="error" style={{ visibility: values.password2 }}>
+            <Alert severity="error" style={{ visibility: errors.password2 }}>
               Not the same Password
             </Alert>
           </Grid>
@@ -267,7 +267,7 @@ export default function Register(props) {
                 userArr.city = newValue;
               }}
             />
-            <Alert severity="error" style={{ visibility: values.city }}>
+            <Alert severity="error" style={{ visibility: errors.city }}>
              Please choose a city from the list
             </Alert>
           </Grid>
@@ -281,7 +281,7 @@ export default function Register(props) {
               onChange={(e) => (userArr.street = e.target.value)}
             />
 
-            <Alert severity="error" style={{ visibility: values.street }}>
+            <Alert severity="error" style={{ visibility: errors.street }}>
               נא להכניס רחוב בעברית בלבד
             </Alert>
           </Grid>
@@ -295,7 +295,7 @@ export default function Register(props) {
               onChange={(e) => (userArr.house = e.target.value)}
             />
 
-            <Alert severity="error" style={{ visibility: values.house }}>
+            <Alert severity="error" style={{ visibility: errors.house }}>
               Please enter a postive number
             </Alert>
           </Grid>
@@ -310,10 +310,11 @@ export default function Register(props) {
               startIcon={<CloudUploadIcon />}
             >
               Upload Image
+         
               <VisuallyHiddenInput
                 type="file"
                 accept="image/jpg, image/jpeg"
-                onChange={(e) => {  userArr.img="ב"
+                onChange={(e) => {  userArr.img=e.target.value
              /*      let imgFromInput = e.target.files[0];
 
                   let reader = new FileReader();
@@ -328,7 +329,7 @@ export default function Register(props) {
               />
             </Button>
 
-            <Alert severity="error" style={{ visibility: values.img }}>
+            <Alert severity="error" style={{ visibility: errors.img }}>
               Upload Image jpeg or jpg.
             </Alert>
           </Grid>
@@ -343,7 +344,7 @@ export default function Register(props) {
               onBlur={(e) => (userArr.birthDate = e.target.value)}
             />
             :תאריך לידה
-            <Alert severity="error" style={{ visibility: values.birthDate }}>
+            <Alert severity="error" style={{ visibility: errors.birthDate }}>
              Must be 18-120 
             </Alert>
           </Grid>

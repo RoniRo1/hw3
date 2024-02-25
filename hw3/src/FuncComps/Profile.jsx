@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import EditDetails from "./EditDetails";
 
-export default function Profile() {
+export default function Profile(props) {
  
  let user = JSON.parse(sessionStorage.getItem("current"))
 
@@ -76,7 +76,7 @@ export default function Profile() {
           </Grid>
         </CardContent>
       </Card> 
-     <EditDetails/>
+     <EditDetails load_user={user}/>
       {/*להוסיף כאן את הקומפטננטה של העריכה...*/}
     </div>
   );

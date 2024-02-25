@@ -10,20 +10,22 @@ import { Link, Route, Routes } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 function App() {
  
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState(()=>{
+    return JSON.parse(localStorage.getItem("Users"))||[]
+
+  })
   const navigate = useNavigate();
  
   function loadUsers (user){
     console.log(user)
     // יגיע דאטה מהרג'יסטר וכאן נטען את זה או מהעריכה
-
-    setUsers([...users,user]);
+     setUsers([...users,user]);
   }
 
   useEffect (()=>{
 
-      if (localStorage.getItem("Users") != null) 
-      setUsers(JSON.parse(localStorage.getItem("Users")));
+    //  if (localStorage.getItem("Users") != null) 
+      //setUsers(JSON.parse(localStorage.getItem("Users")));
       
       return () => {
     
@@ -34,10 +36,14 @@ function App() {
   
   // הטענה של הלוקל סטורג
   useEffect (()=>{
-    console.log(users)
+  console.log(users)
   localStorage.setItem("Users", JSON.stringify(users));
   //navigate('/')
    },[users])
+
+
+   // לעשות פונקצי שמקבלת יוזר ושולחת אותו לedit 
+
   return (
     <div>
     

@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 export default function LogIn(props) {
+ 
+ 
   let users_load =props.load_users;
   console.log(users_load)
   //הכנת מערך ליוזר
@@ -36,17 +38,17 @@ export default function LogIn(props) {
    // console.log(users_load.find((user)=> user.username==userState.username))
    
     let user = users_load.find((x)=> x.username==userState.username)
-    console.log(user)
+    
   //  if (users_load.find((x)=> x.username=useState.username)) {
   
   
   if (user!=undefined) {
-      if (user.password == userState.password) {
+     
+    if (user.password == userState.password) {
         console.log("hey");
-        sessionStorage.setItem(
-          "current",
-          JSON.stringify(user)
-        );
+       
+        sessionStorage.setItem( "current",JSON.stringify(user) );
+      
         navigate('/profile')
       } else {
         arr.password = "visible";

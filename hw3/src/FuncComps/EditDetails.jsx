@@ -10,6 +10,9 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 
+
+// כפתור העלאת תמונה
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -21,9 +24,10 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
-export default function EditDetails() {
- 
- 
+
+export default function EditDetails(props) {
+ // לשלוח יוזר בודד
+  let user =props.load_user;
   // מערך ערים לכפתור
   let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
  
@@ -43,8 +47,7 @@ export default function EditDetails() {
     password2: "hidden",
   };
  
-  let user = JSON.parse(sessionStorage.getItem("current"));
- 
+  
   //states...
   const [userArr, setUserArr] = useState({ ...user });
   const [values, setValues] = useState({ ...arr });
