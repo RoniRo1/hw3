@@ -159,7 +159,7 @@ export default function EditDetails(props) {
     //שורה זהה ל151 אולי לוותר?
       sessionStorage.setItem( "current",JSON.stringify(userArr) );
     // שולחת לאבא שסיימתי ואפשר לרנדר מחדש
-      props.send2ParentEdit(true);
+      props.send2ParentEdit(true,userArr);
     } 
   }
     useEffect(() => {

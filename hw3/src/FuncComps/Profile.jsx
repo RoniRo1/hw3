@@ -12,8 +12,8 @@ import { Shower } from "@mui/icons-material";
 
 export default function Profile(props) {
  
- let user = props.user 
  
+ const [user,setUser]= useState(props.user)
  const [visEdit,setVisEdit] = useState("hidden");
  let dt = new Date(user.birthDate);
 
@@ -40,8 +40,8 @@ export default function Profile(props) {
  }
  
  // פונקציית עריכה הסתיימה ושלחה שאפשר להחביא את הקומפוננטה 
- function showEditDetails (finish){
-
+ function showEditDetails (finish,userfromEdit){
+  setUser(userfromEdit);
   if(finish)
   setVisEdit("hidden")
 
