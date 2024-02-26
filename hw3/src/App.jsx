@@ -9,23 +9,28 @@ import SystemAdmin from './FuncComps/SystemAdmin'
 import { Link, Route, Routes } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 function App() {
- 
-  const [users, setUsers] = useState(()=>{
-    return JSON.parse(localStorage.getItem("Users"))||[]
-
-  })
   const navigate = useNavigate();
  
+  // כל הלוקל סטורג
+  const [users, setUsers] = useState(()=>{
+    return JSON.parse(localStorage.getItem("Users"))||[]
+  })
+  // סשיין סטורג
+  const [currentUser, setCurrent] = useState(()=> {
+    return JSON.parse(sessionStorage.getItem("current"))||{}
+  })
+  
+  // הטענת יוזרים מההרשמה 
   function loadUsers (user){
     console.log(user)
-    // יגיע דאטה מהרג'יסטר וכאן נטען את זה או מהעריכה
      setUsers([...users,user]);
   }
 
-  useEffect (()=>{
+  // כרגע אין טעם 
+ /*  useEffect (()=>{
 
     //  if (localStorage.getItem("Users") != null) 
-      //setUsers(JSON.parse(localStorage.getItem("Users")));
+    //setUsers(JSON.parse(localStorage.getItem("Users")));
       
       return () => {
     
@@ -34,6 +39,8 @@ function App() {
     }
   ,[])
   
+ */
+  
   // הטענה של הלוקל סטורג
   useEffect (()=>{
   console.log(users)
@@ -41,8 +48,14 @@ function App() {
   //navigate('/')
    },[users])
 
-
-   // לעשות פונקצי שמקבלת יוזר ושולחת אותו לedit 
+   // מקבל משתמש שהתחבר
+  function loadCurrent (user){
+    setCurrent(user);
+  }
+  // הטענה של יוזר מחובר 
+  useEffect (()=>{
+  sessionStorage.setItem("current",JSON.stringify(currentUser))
+  },[currentUser])
 
   return (
     <div>
@@ -50,10 +63,10 @@ function App() {
  
    
     <Routes>
-        <Route path="/" element={<LogIn load_users={users}/>} />
+        <Route path="/" element={<LogIn load_users={users} sendCutrrent2Parent={loadCurrent}/>} />
         <Route path="/register" element={<Register sendUser={loadUsers}/>} />
         <Route path="/systemAdmin" element={<SystemAdmin load_users={users}/>} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile user={currentUser}/>} />
       </Routes>
 
 

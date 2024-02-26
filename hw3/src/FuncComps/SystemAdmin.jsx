@@ -9,11 +9,15 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from "@mui/material/Avatar";
 import { Button } from '@mui/material';
+import { useState } from 'react';
+import EditDetails from './EditDetails';
 
 
 
 export default function SystemAdmin(props) {
   
+
+    // כנראה שכרגע לא יעבוד כי עשיתי שינויים ועוד לא יישמתי כאן
      //mui
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -37,6 +41,9 @@ export default function SystemAdmin(props) {
       
       //end mui 
 
+
+      const [editComp, setEditComp] = useState("");
+
      // let users_load = JSON.parse(localStorage.getItem("Users"));
      
      
@@ -44,13 +51,18 @@ export default function SystemAdmin(props) {
      console.log(users_load)
    
 
-     function editUser (user){
+     function editUser_fun (e){
 
+        console.log(e.target.id)
+         let user = users_load.find((x)=> x.email==e.target.id)
+         console.log(user)
 
-
-
+         setEditComp(<div>
+          <EditDetails load_user={user}/>
+         </div>)
      }
     return (
+      <>
         <TableContainer component={Paper} style={{direction:"rtl"}}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
@@ -78,8 +90,8 @@ export default function SystemAdmin(props) {
                   <StyledTableCell align="right">{row.street} {row.house}, {row.city}</StyledTableCell>
                   <StyledTableCell align="right">{row.email}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <button  onClick={editUser(row)}>עריכה</button>
-                    <button  onClick={editUser(row)}>מחיקה</button>
+                    <button id={row.email} onClick={editUser_fun}>עריכה</button>
+                    <button  >מחיקה</button>
                     
                     </StyledTableCell>
                 </StyledTableRow>
@@ -88,6 +100,8 @@ export default function SystemAdmin(props) {
           </Table>
         </TableContainer>
 
+        {editComp}
+       </>
         //edituser....
       );
     }

@@ -1,4 +1,4 @@
-import Alert from "@mui/material/Alert";
+  import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -45,10 +45,9 @@ export default function LogIn(props) {
   if (user!=undefined) {
      
     if (user.password == userState.password) {
-        console.log("hey");
-       
-        sessionStorage.setItem( "current",JSON.stringify(user) );
-      
+        console.log(user);
+       // שולח לאפ כדי לטעון את היוזר
+        props.sendCutrrent2Parent(user)
         navigate('/profile')
       } else {
         arr.password = "visible";

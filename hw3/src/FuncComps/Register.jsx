@@ -44,7 +44,7 @@ export default function Register(props) {
     house: "",
     username: "",
   };
-
+ const [userArr, setUserArr] = useState({ ...user });
   // מערך להציג פסקת שגיאה
   let error = {
     firstName: "hidden",
@@ -61,7 +61,7 @@ export default function Register(props) {
   };
 
   //states...
-  const [userArr, setUserArr] = useState({ ...user });
+  
   const [errors, setErrors] = useState({ ...error });
   const [password2, setPassword2] = useState({});
   
@@ -314,8 +314,8 @@ export default function Register(props) {
               <VisuallyHiddenInput
                 type="file"
                 accept="image/jpg, image/jpeg"
-                onChange={(e) => {  userArr.img=e.target.value
-             /*      let imgFromInput = e.target.files[0];
+                onChange={(e) => { userArr.img = (URL.createObjectURL(e.target.files[0]))
+                /* let imgFromInput = e.target.files[0];
 
                   let reader = new FileReader();
                   reader.addEventListener("load", () => {
@@ -324,7 +324,7 @@ export default function Register(props) {
                   });
                   if (imgFromInput) {
                     reader.readAsDataURL(imgFromInput);
-                  } */
+                  }  */
                 }}
               />
             </Button>

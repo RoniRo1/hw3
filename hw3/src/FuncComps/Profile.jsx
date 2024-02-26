@@ -8,11 +8,13 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import EditDetails from "./EditDetails";
+import { Shower } from "@mui/icons-material";
 
 export default function Profile(props) {
  
- let user = JSON.parse(sessionStorage.getItem("current"))
-
+ let user = props.user 
+ 
+ const [visEdit,setVisEdit] = useState("hidden");
  let dt = new Date(user.birthDate);
 
  function getMonthName(monthIndex){
@@ -24,20 +26,26 @@ export default function Profile(props) {
 
  
  //התנתקות
+ // לעבוד על זה
  function logoutUser(){
 
   // להוסיף בדיקה האם מחובר, כתוב בדרישות
   sessionStorage.clear();
   // מעבר לעמוד login
  }
- 
- 
- function EditDetailss (){
 
-    //לעשות משתנה שיחזיר קומפטננטה של edit?
+ // נלחץ כפתור עריכה ואפשר להציג את הקומפננטה
+ function clickEdit(){
+  setVisEdit("visible")
+ }
+ 
+ // פונקציית עריכה הסתיימה ושלחה שאפשר להחביא את הקומפוננטה 
+ function showEditDetails (finish){
+
+  if(finish)
+  setVisEdit("hidden")
 
 }
- console.log(israeliDate);
 
 
 
@@ -67,7 +75,7 @@ export default function Profile(props) {
                 {israeliDate}
               </Typography>
 
-              <Button onClick={EditDetailss}>עדכון פרטים</Button>
+              <Button onClick={clickEdit}>עדכון פרטים</Button>
               <Button ><a href="https://www.crazygames.com/game/diner-dash">למשחק</a></Button>
               <Button onClick={logoutUser}>התנתק</Button>
 
@@ -76,8 +84,10 @@ export default function Profile(props) {
           </Grid>
         </CardContent>
       </Card> 
-     <EditDetails load_user={user}/>
-      {/*להוסיף כאן את הקומפטננטה של העריכה...*/}
+
+{/*       קומפונטטת עריכה
+ */}     
+ <EditDetails visEdit={visEdit} load_user={user} send2ParentEdit={showEditDetails}/>
     </div>
   );
 }

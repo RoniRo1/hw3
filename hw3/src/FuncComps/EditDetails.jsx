@@ -26,11 +26,11 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function EditDetails(props) {
- // לשלוח יוזר בודד
+ //  מקבל יוזר מהאבא (פרופיל ובהמשך מהאדמין) 
   let user =props.load_user;
   // מערך ערים לכפתור
   let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
- 
+  let visEdit = props.visEdit
  
   // מערך להציג פסקת שגיאה
   let arr = {
@@ -147,27 +147,29 @@ export default function EditDetails(props) {
         let count=0;
         users_load.find(function (x) {
         if (userArr.email == x.email) {
-          users_load[count]=userArr
+          users_load[count]=userArr;
           sessionStorage.setItem("current", JSON.stringify(userArr))
-          
-          // לראות איך אני מרנדרת מחדש את הפרופיל
          return;
           
         }
         count++;
       }); 
      
-      localStorage.setItem("Users_load", JSON.stringify(users_load));
-    }
+      localStorage.setItem("Users", JSON.stringify(users_load));
+    //שורה זהה ל151 אולי לוותר?
+      sessionStorage.setItem( "current",JSON.stringify(userArr) );
+    // שולחת לאבא שסיימתי ואפשר לרנדר מחדש
+      props.send2ParentEdit(true);
+    } 
   }
-  useEffect(() => {
-    if (localStorage.getItem("Users_load") != null) {
-      users_load = JSON.parse(localStorage.getItem("Users_load"));
+    useEffect(() => {
+    if (localStorage.getItem("Users") != null) {
+      users_load = JSON.parse(localStorage.getItem("Users"));
     }
   });
 
   return (
-    <div style={{ direction: "ltr" }}>
+    <div style={{ direction: "ltr", visibility:visEdit}}>
      
       <Box sx={{ mt: 1, width: "75%" }}>
       
@@ -370,7 +372,7 @@ export default function EditDetails(props) {
           </Grid>
         </Grid>
       </Box>
-      <img src={userArr.img["name"]} alt="" />
+   
     </div>
   );
 }
