@@ -41,24 +41,25 @@ export default function SystemAdmin(props) {
       
       //end mui 
 
-
       const [editComp, setEditComp] = useState("");
-
+      const [users_load, setUsers_load] = useState(props.load_users)
      // let users_load = JSON.parse(localStorage.getItem("Users"));
      
      
-     let users_load =props.load_users;
      console.log(users_load)
    
-
+     function showEditDetails(e){
+        
+          setEditComp("")  
+          setUsers_load(e)
+        
+      }
      function editUser_fun (e){
-
-        console.log(e.target.id)
          let user = users_load.find((x)=> x.email==e.target.id)
          console.log(user)
 
          setEditComp(<div>
-          <EditDetails load_user={user}/>
+          <EditDetails  load_user={user} send2ParentEdit={showEditDetails} parent={"admin"}/>
          </div>)
      }
     return (

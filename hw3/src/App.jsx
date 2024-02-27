@@ -20,12 +20,20 @@ function App() {
     return JSON.parse(sessionStorage.getItem("current"))||{}
   })
   
+  //..................................................
   // הטענת יוזרים מההרשמה 
   function loadUsers (user){
     console.log(user)
      setUsers([...users,user]);
   }
 
+   // מקבל משתמש שהתחבר
+  function loadCurrent (user){
+    setCurrent(user);
+  }
+
+
+ //.........................................................
   // כרגע אין טעם 
  /*  useEffect (()=>{
 
@@ -40,7 +48,7 @@ function App() {
   ,[])
   
  */
-  
+ 
   // הטענה של הלוקל סטורג
   useEffect (()=>{
   console.log(users)
@@ -48,10 +56,6 @@ function App() {
   //navigate('/')
    },[users])
 
-   // מקבל משתמש שהתחבר
-  function loadCurrent (user){
-    setCurrent(user);
-  }
   // הטענה של יוזר מחובר 
   useEffect (()=>{
   sessionStorage.setItem("current",JSON.stringify(currentUser))

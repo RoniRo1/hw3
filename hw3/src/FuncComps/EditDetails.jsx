@@ -149,18 +149,23 @@ export default function EditDetails(props) {
         if (userArr.email == x.email) {
           users_load[count]=userArr;
           sessionStorage.setItem("current", JSON.stringify(userArr))
-         return;
+           return;
           
         }
-        count++;
+        count++; 
+     
       }); 
      
-      localStorage.setItem("Users", JSON.stringify(users_load));
-    //שורה זהה ל151 אולי לוותר?
-      sessionStorage.setItem( "current",JSON.stringify(userArr) );
+       localStorage.setItem("Users", JSON.stringify(users_load));    
+        if (props.parent=="profile")
+           props.send2ParentEdit(userArr);
+         if (props.parent=="admin")
+         props.send2ParentEdit(users_load);
     // שולחת לאבא שסיימתי ואפשר לרנדר מחדש
-      props.send2ParentEdit(true,userArr);
-    } 
+  
+  }
+   
+    
   }
     useEffect(() => {
     if (localStorage.getItem("Users") != null) {

@@ -8,22 +8,11 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import EditDetails from "./EditDetails";
-import { Shower } from "@mui/icons-material";
 
 export default function Profile(props) {
- 
- 
+
  const [user,setUser]= useState(props.user)
- const [visEdit,setVisEdit] = useState("hidden");
- let dt = new Date(user.birthDate);
-
- function getMonthName(monthIndex){
-  var monthsNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-  return monthsNames[monthIndex];
-}
-
- let israeliDate = dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
-
+ const [editComp, setEditComp] = useState("");
  
  //התנתקות
  // לעבוד על זה
@@ -34,16 +23,18 @@ export default function Profile(props) {
   // מעבר לעמוד login
  }
 
+ 
  // נלחץ כפתור עריכה ואפשר להציג את הקומפננטה
  function clickEdit(){
-  setVisEdit("visible")
+  setEditComp(<div>
+    <EditDetails  load_user={user} send2ParentEdit={showEditDetails} parent={"profile"}/>
+   </div>)
  }
  
  // פונקציית עריכה הסתיימה ושלחה שאפשר להחביא את הקומפוננטה 
- function showEditDetails (finish,userfromEdit){
+ function showEditDetails (userfromEdit){
   setUser(userfromEdit);
-  if(finish)
-  setVisEdit("hidden")
+  setEditComp("")
 
 }
 
@@ -72,7 +63,7 @@ export default function Profile(props) {
               <Typography variant="body2">
               {user.street  + " " +user.house +", "+ user.city}
                 <br />
-                {israeliDate}
+                {user.birthDate}
               </Typography>
 
               <Button onClick={clickEdit}>עדכון פרטים</Button>
@@ -87,7 +78,10 @@ export default function Profile(props) {
 
 {/*       קומפונטטת עריכה
  */}     
- <EditDetails visEdit={visEdit} load_user={user} send2ParentEdit={showEditDetails}/>
-    </div>
+{/* <EditDetails visEdit={visEdit} load_user={user} send2ParentEdit={showEditDetails}/>
+ */}  
+    {editComp}
+ 
+   </div>
   );
 }

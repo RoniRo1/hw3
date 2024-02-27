@@ -66,8 +66,13 @@ export default function Register(props) {
   const [password2, setPassword2] = useState({});
   
   
-  //let users_load = [];
-
+  //let dt = new Date(user.birthDate);
+  function getMonthName(monthIndex){
+   var monthsNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+   return monthsNames[monthIndex];
+ }
+ //let israeliDate = dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
+ 
 
   // לחיצה על כתפור הרשמה
   function registerUser() {
@@ -128,6 +133,8 @@ export default function Register(props) {
       arr.birthDate = "visible";
     else {
       arr.birthDate = "hidden";
+      let dt=  new Date(userArr.birthDate);
+      userArr.birthDate= dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
       counter++;
     }
 
@@ -314,8 +321,8 @@ export default function Register(props) {
               <VisuallyHiddenInput
                 type="file"
                 accept="image/jpg, image/jpeg"
-                onChange={(e) => { userArr.img = (URL.createObjectURL(e.target.files[0]))
-                /* let imgFromInput = e.target.files[0];
+                onChange={(e) => { 
+                  let imgFromInput = e.target.files[0];
 
                   let reader = new FileReader();
                   reader.addEventListener("load", () => {
@@ -324,7 +331,7 @@ export default function Register(props) {
                   });
                   if (imgFromInput) {
                     reader.readAsDataURL(imgFromInput);
-                  }  */
+                  }  
                 }}
               />
             </Button>
