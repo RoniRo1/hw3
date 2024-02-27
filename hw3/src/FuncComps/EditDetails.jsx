@@ -63,7 +63,7 @@ export default function EditDetails(props) {
     let arr = { ...values },
       counter = 0;
     //לבדוק האם קיים יוזר?
-    if (!/^[a-zA-Z]+$/.test(userArr.firstName)) arr.firstName = "visible";
+    if (!/^[a-zA-Z]+$/.test(userArr.firstName)|| userArr.firstName == "") arr.firstName = "visible";
     else {
       arr.firstName = "hidden";
       counter++;

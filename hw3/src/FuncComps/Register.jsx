@@ -75,7 +75,7 @@ export default function Register(props) {
     let arr = { ...errors }, counter = 0;
 
     //לבדוק האם קיים יוזר?
-    if (!/^[a-zA-Z]+$/.test(userArr.firstName)) arr.firstName = "visible";
+    if (!/^[a-zA-Z]+$/.test(userArr.firstName)|| userArr.firstName == "") arr.firstName = "visible";
     else {
       arr.firstName = "hidden";
       counter++;
