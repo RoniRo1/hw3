@@ -65,7 +65,7 @@ export default function SystemAdmin(props) {
          </div>)
      }
      function deleteUser (e){
-      let userEmail = e.target.className;
+      let userEmail = e.currentTarget.className;
       props.send2ParentDelete(userEmail)
 
      }
