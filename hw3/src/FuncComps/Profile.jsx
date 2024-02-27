@@ -1,6 +1,4 @@
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -10,35 +8,35 @@ import { useState, useEffect } from "react";
 import EditDetails from "./EditDetails";
 
 export default function Profile(props) {
+  const [user, setUser] = useState(props.user);
+  const [editComp, setEditComp] = useState("");
 
- const [user,setUser]= useState(props.user)
- const [editComp, setEditComp] = useState("");
- 
- //התנתקות
- // לעבוד על זה
- function logoutUser(){
+  //התנתקות
+  // לעבוד על זה
+  function logoutUser() {
+    // להוסיף בדיקה האם מחובר, כתוב בדרישות
+    sessionStorage.clear();
+    // מעבר לעמוד login
+  }
 
-  // להוסיף בדיקה האם מחובר, כתוב בדרישות
-  sessionStorage.clear();
-  // מעבר לעמוד login
- }
+  // נלחץ כפתור עריכה ואפשר להציג את הקומפננטה
+  function clickEdit() {
+    setEditComp(
+      <div>
+        <EditDetails
+          load_user={user}
+          send2ParentEdit={showEditDetails}
+          parent={"profile"}
+        />
+      </div>
+    );
+  }
 
- 
- // נלחץ כפתור עריכה ואפשר להציג את הקומפננטה
- function clickEdit(){
-  setEditComp(<div>
-    <EditDetails  load_user={user} send2ParentEdit={showEditDetails} parent={"profile"}/>
-   </div>)
- }
- 
- // פונקציית עריכה הסתיימה ושלחה שאפשר להחביא את הקומפוננטה 
- function showEditDetails (userfromEdit){
-  setUser(userfromEdit);
-  setEditComp("")
-
-}
-
-
+  // פונקציית עריכה הסתיימה ושלחה שאפשר להחביא את הקומפוננטה
+  function showEditDetails(userfromEdit) {
+    setUser(userfromEdit);
+    setEditComp("");
+  }
 
   return (
     <div style={{ direction: "rtl", margin: "0 auto" }}>
@@ -54,34 +52,31 @@ export default function Profile(props) {
             </Grid>
             <Grid item xs={8}>
               <Typography variant="h9">
-               {user.firstName +" "+user.lastName}
-             
+                {user.firstName + " " + user.lastName}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {user.email}
-               </Typography>
+                {user.email}
+              </Typography>
               <Typography variant="body2">
-              {user.street  + " " +user.house +", "+ user.city}
+                {user.street + " " + user.house + ", " + user.city}
                 <br />
                 {user.birthDateStr}
               </Typography>
 
               <Button onClick={clickEdit}>עדכון פרטים</Button>
-              <Button ><a href="https://www.crazygames.com/game/diner-dash">למשחק</a></Button>
+              <Button>
+                <a href="https://www.crazygames.com/game/diner-dash">למשחק</a>
+              </Button>
               <Button onClick={logoutUser}>התנתק</Button>
-
-               
             </Grid>
           </Grid>
         </CardContent>
-      </Card> 
+      </Card>
 
-{/*       קומפונטטת עריכה
- */}     
-{/* <EditDetails visEdit={visEdit} load_user={user} send2ParentEdit={showEditDetails}/>
- */}  
-    {editComp}
- 
-   </div>
+      {/*       קומפונטטת עריכה
+       */}
+
+      {editComp}
+    </div>
   );
 }

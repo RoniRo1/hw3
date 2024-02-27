@@ -1,13 +1,12 @@
-
+import { Link, Route, Routes } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import './App.css'
 import Register from './FuncComps/Register'
 import LogIn from './FuncComps/LogIn'
 import Profile from './FuncComps/Profile'
-import EditDetails from './FuncComps/EditDetails'
 import SystemAdmin from './FuncComps/SystemAdmin'
-import { Link, Route, Routes } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
+
 function App() {
   const navigate = useNavigate();
  
@@ -32,7 +31,14 @@ function App() {
     setCurrent(user);
   }
 
-
+  function deleteUser (userEmail){
+    let index = users.findIndex((x)=> x.email==userEmail)
+    let temp = users
+    temp.splice(index,1);
+    setUsers([...users])
+    
+    console.log(temp)
+  }
  //.........................................................
   // כרגע אין טעם 
  /*  useEffect (()=>{
@@ -51,7 +57,6 @@ function App() {
  
   // הטענה של הלוקל סטורג
   useEffect (()=>{
-  console.log(users)
   localStorage.setItem("Users", JSON.stringify(users));
   //navigate('/')
    },[users])
@@ -64,12 +69,10 @@ function App() {
   return (
     <div>
     
- 
-   
     <Routes>
         <Route path="/" element={<LogIn load_users={users} sendCutrrent2Parent={loadCurrent}/>} />
         <Route path="/register" element={<Register sendUser={loadUsers}/>} />
-        <Route path="/systemAdmin" element={<SystemAdmin load_users={users}/>} />
+        <Route path="/systemAdmin" element={<SystemAdmin load_users={users} send2ParentDelete={deleteUser}/>} />
         <Route path="/profile" element={<Profile user={currentUser}/>} />
       </Routes>
 
