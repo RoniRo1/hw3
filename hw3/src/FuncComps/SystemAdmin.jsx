@@ -55,12 +55,13 @@ export default function SystemAdmin(props) {
           setUsers_load(e)
         
       }
-     function editUser_fun (e){
-         let user = users_load.find((x)=> x.email==e.target.className)
+      function editUser_fun (e){
+       console.log(e.currentTarget.id)
+         let user = users_load.find((x)=> x.email==e.currentTarget.id)
          console.log(user)
 
          setEditComp(<div>
-          <EditDetails  load_user={user} send2ParentEdit={showEditDetails} parent={"admin"}/>
+         <EditDetails  load_user={user} send2ParentEdit={showEditDetails} parent={"admin"}/>
          </div>)
      }
      function deleteUser (e){
@@ -98,8 +99,8 @@ export default function SystemAdmin(props) {
                   <StyledTableCell align="right">{row.street} {row.house}, {row.city}</StyledTableCell>
                   <StyledTableCell align="right">{row.email}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <IconButton   className={row.email} onClick={editUser_fun}><EditIcon fontSize="small"/></IconButton>
-                    <IconButton className={row.email} onClick={deleteUser} ><DeleteIcon fontSize="small"/></IconButton>
+                    <IconButton   id={row.email} onClick={editUser_fun}><EditIcon fontSize="small"/></IconButton>
+                    <IconButton id={row.email} onClick={deleteUser} ><DeleteIcon fontSize="small"/></IconButton>
                     
                     </StyledTableCell>
                 </StyledTableRow>
