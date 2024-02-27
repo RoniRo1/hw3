@@ -63,7 +63,7 @@ export default function Profile(props) {
               <Typography variant="body2">
               {user.street  + " " +user.house +", "+ user.city}
                 <br />
-                {user.birthDate}
+                {user.birthDateStr}
               </Typography>
 
               <Button onClick={clickEdit}>עדכון פרטים</Button>

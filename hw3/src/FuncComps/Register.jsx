@@ -43,6 +43,7 @@ export default function Register(props) {
     street: "",
     house: "",
     username: "",
+    birthDateStr: "",
   };
  const [userArr, setUserArr] = useState({ ...user });
   // מערך להציג פסקת שגיאה
@@ -65,13 +66,7 @@ export default function Register(props) {
   const [errors, setErrors] = useState({ ...error });
   const [password2, setPassword2] = useState({});
   
-  
-  //let dt = new Date(user.birthDate);
-  function getMonthName(monthIndex){
-   var monthsNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-   return monthsNames[monthIndex];
- }
- //let israeliDate = dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
+
  
 
   // לחיצה על כתפור הרשמה
@@ -132,9 +127,10 @@ export default function Register(props) {
     if (120 <= age || age <= 18 || userArr.birthDate == "")
       arr.birthDate = "visible";
     else {
+      // הצגה יפה של הגיל
       arr.birthDate = "hidden";
       let dt=  new Date(userArr.birthDate);
-      userArr.birthDate= dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
+      userArr.birthDateStr= dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
       counter++;
     }
 
@@ -383,4 +379,10 @@ export default function Register(props) {
       age_now--;
     }
     return age_now;
-  };
+  }; 
+  
+  // הצגה יפה של הגיל
+  function getMonthName(monthIndex){
+   var monthsNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+   return monthsNames[monthIndex];
+ }

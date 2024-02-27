@@ -70,7 +70,7 @@ export default function SystemAdmin(props) {
               <TableRow>
 {/*                 להוסיף שם משתמש
  */}     
-            <StyledTableCell>תמוונה</StyledTableCell>
+                <StyledTableCell>תמונה</StyledTableCell>
                 <StyledTableCell align="right">שם מלא</StyledTableCell>
                 <StyledTableCell align="right">תאריך לידה</StyledTableCell>
                 <StyledTableCell align="right">כתובת</StyledTableCell>
@@ -87,7 +87,7 @@ export default function SystemAdmin(props) {
                 src={row.img}
               /></StyledTableCell>
                   <StyledTableCell align="right">{row.firstName} {row.lastName}</StyledTableCell>
-                  <StyledTableCell align="right">{row.birthDate}</StyledTableCell>
+                  <StyledTableCell align="right">{row.birthDateStr}</StyledTableCell>
                   <StyledTableCell align="right">{row.street} {row.house}, {row.city}</StyledTableCell>
                   <StyledTableCell align="right">{row.email}</StyledTableCell>
                   <StyledTableCell align="right">

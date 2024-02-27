@@ -118,6 +118,8 @@ export default function EditDetails(props) {
       arr.birthDate = "visible";
     else {
       arr.birthDate = "hidden";
+      let dt=  new Date(userArr.birthDate);
+      userArr.birthDateStr= dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
       counter++;
     }
 
@@ -393,3 +395,10 @@ export default function EditDetails(props) {
     }
     return age_now;
   };
+
+
+    // הצגה יפה של הגיל
+    function getMonthName(monthIndex){
+      var monthsNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+      return monthsNames[monthIndex];
+    }
