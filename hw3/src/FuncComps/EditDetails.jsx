@@ -158,13 +158,12 @@ export default function EditDetails(props) {
      
       }); 
      
-       //localStorage.setItem("Users", JSON.stringify(users_load));    
+        //שולחת לפרופיל את המשתמש והמערך החדש
         if (props.parent=="profile")
-       // {sessionStorage.setItem("current", JSON.stringify(userArr))
-           props.send2ParentEdit(users_load,userArr);
+          props.send2ParentEdit(users_load,userArr);
+        // שולחת לאדמין את המערך החדש
          if (props.parent=="admin")
          props.send2ParentEdit(users_load);
-    // שולחת לאבא שסיימתי ואפשר לרנדר מחדש
   
   }
    

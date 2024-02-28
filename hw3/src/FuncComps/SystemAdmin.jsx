@@ -18,7 +18,7 @@ import IconButton from '@mui/material/IconButton';
 export default function SystemAdmin(props) {
   
 
-    // כנראה שכרגע לא יעבוד כי עשיתי שינויים ועוד לא יישמתי כאן
+   
      //mui
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -39,7 +39,6 @@ export default function SystemAdmin(props) {
           border: 0,
         },
       })); 
-      
       //end mui 
 
       const [editComp, setEditComp] = useState("");
@@ -47,26 +46,34 @@ export default function SystemAdmin(props) {
      // let users_load = JSON.parse(localStorage.getItem("Users"));
      
      
-     console.log(users_load)
-   
+    
+   //התקבל מקומפ של עריכה ואפשר להפסיק להציג אותה ולעדכן את הסטורג
      function showEditDetails(users_fromedit){
         
           setEditComp("")  
+          // שולח לאבא את הרשימה 
           props.send2ParentEdit(users_fromedit)
           setUsers_load([...users_fromedit])
         
       }
-      function editUser_fun (e){
-       console.log(e.currentTarget.id)
-         let user = users_load.find((x)=> x.email==e.currentTarget.id)
-         console.log(user)
 
+      // נלחץ כפתור עריכת משתמש
+      function editUser_fun (e){
+         
+        // מוצא את המשתמש שעליו לחצו לערוך
+         let user = users_load.find((x)=> x.email==e.currentTarget.id)
+         
+         // מציגים את קומפ עריכה מתחת לטבלה
          setEditComp(<div>
          <EditDetails  load_user={user} send2ParentEdit={showEditDetails} parent={"admin"}/>
          </div>)
      }
+
+     // נלחץ כפתור מחיקת משתמש
      function deleteUser (e){
+      
       let userEmail = e.currentTarget.className;
+      // שולחת לאבא את המייל ומקבלת ממנו בחזרה את הרשימת משתמשים המעודכנת 
       setUsers_load(props.send2ParentDelete(userEmail))
 
      }

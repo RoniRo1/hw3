@@ -11,10 +11,10 @@ export default function Profile(props) {
   const [user, setUser] = useState(props.user);
   const [editComp, setEditComp] = useState("");
   const navigate = useNavigate();
+ 
+ 
   //התנתקות
-  // לעבוד על זה
   function logoutUser() {
-    // להוסיף בדיקה האם מחובר, כתוב בדרישות
     sessionStorage.clear();
     navigate('/')
     // מעבר לעמוד login
