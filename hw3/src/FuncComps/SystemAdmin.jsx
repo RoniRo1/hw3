@@ -49,10 +49,11 @@ export default function SystemAdmin(props) {
      
      console.log(users_load)
    
-     function showEditDetails(e){
+     function showEditDetails(users_fromedit){
         
           setEditComp("")  
-          setUsers_load(e)
+          props.send2ParentEdit(users_fromedit)
+          setUsers_load(users_fromedit)
         
       }
       function editUser_fun (e){
@@ -72,7 +73,7 @@ export default function SystemAdmin(props) {
     return (
       <>
         <TableContainer component={Paper} style={{direction:"rtl"}}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <Table sx={{ maxWidth: 1000 }} aria-label="customized table">
             <TableHead>
               <TableRow> 
                 <StyledTableCell>תמונה</StyledTableCell>

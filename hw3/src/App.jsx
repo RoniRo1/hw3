@@ -39,6 +39,16 @@ function App() {
     
     console.log(temp)
   }
+  function editUsers (users_load){
+
+      setUsers([...users_load])
+
+  }
+  function editCurrentUser (users_load,user){
+
+    setCurrent(user);
+    setUsers([...users_load])
+  }
  //.........................................................
   // כרגע אין טעם 
  /*  useEffect (()=>{
@@ -72,8 +82,8 @@ function App() {
     <Routes>
         <Route path="/" element={<LogIn load_users={users} sendCutrrent2Parent={loadCurrent}/>} />
         <Route path="/register" element={<Register sendUser={loadUsers}/>} />
-        <Route path="/systemAdmin" element={<SystemAdmin load_users={users} send2ParentDelete={deleteUser}/>} />
-        <Route path="/profile" element={<Profile user={currentUser}/>} />
+        <Route path="/systemAdmin" element={<SystemAdmin load_users={users} send2ParentDelete={deleteUser} send2ParentEdit={editUsers}/>} />
+        <Route path="/profile" element={<Profile user={currentUser} send2ParentEdit={editCurrentUser}/>} />
       </Routes>
 
 

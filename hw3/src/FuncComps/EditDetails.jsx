@@ -158,10 +158,10 @@ export default function EditDetails(props) {
      
       }); 
      
-       localStorage.setItem("Users", JSON.stringify(users_load));    
+       //localStorage.setItem("Users", JSON.stringify(users_load));    
         if (props.parent=="profile")
-        {sessionStorage.setItem("current", JSON.stringify(userArr))
-           props.send2ParentEdit(userArr);}
+       // {sessionStorage.setItem("current", JSON.stringify(userArr))
+           props.send2ParentEdit(users_load,userArr);
          if (props.parent=="admin")
          props.send2ParentEdit(users_load);
     // שולחת לאבא שסיימתי ואפשר לרנדר מחדש
@@ -179,7 +179,7 @@ export default function EditDetails(props) {
   return (
     <div style={{ direction: "ltr", visibility:visEdit}}>
      
-      <Box sx={{ mt: 1, width: "75%" }}>
+      <Box   fullWidth xs={{ mt: 10}}>
       
         <h1 style={{ width: "60%" }}>Edit Deatils</h1>
 

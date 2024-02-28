@@ -6,16 +6,17 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import EditDetails from "./EditDetails";
-
+import { useNavigate } from 'react-router-dom';
 export default function Profile(props) {
   const [user, setUser] = useState(props.user);
   const [editComp, setEditComp] = useState("");
-
+  const navigate = useNavigate();
   //התנתקות
   // לעבוד על זה
   function logoutUser() {
     // להוסיף בדיקה האם מחובר, כתוב בדרישות
     sessionStorage.clear();
+    navigate('/')
     // מעבר לעמוד login
   }
 
@@ -33,8 +34,9 @@ export default function Profile(props) {
   }
 
   // פונקציית עריכה הסתיימה ושלחה שאפשר להחביא את הקומפוננטה
-  function showEditDetails(userfromEdit) {
+  function showEditDetails(users_loadfromedit,userfromEdit) {
     setUser(userfromEdit);
+    props.send2ParentEdit(users_loadfromedit,userfromEdit)
     setEditComp("");
   }
 
