@@ -336,7 +336,6 @@ export default function EditDetails(props) {
 
                   let reader = new FileReader();
                   reader.addEventListener("load", () => {
-                    // convert image file to base64 string and save to localStorage
                     userArr.img = reader.result;
                   });
                   if (imgFromInput) {

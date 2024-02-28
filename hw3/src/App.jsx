@@ -33,11 +33,9 @@ function App() {
 
   function deleteUser (userEmail){
     let index = users.findIndex((x)=> x.email==userEmail)
-    let temp = users
-    temp.splice(index,1);
+    users.splice(index,1);
     setUsers([...users])
-    
-    console.log(temp)
+    return users;
   }
   function editUsers (users_load){
 
@@ -48,6 +46,7 @@ function App() {
 
     setCurrent(user);
     setUsers([...users_load])
+
   }
  //.........................................................
   // כרגע אין טעם 

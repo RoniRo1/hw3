@@ -53,7 +53,7 @@ export default function SystemAdmin(props) {
         
           setEditComp("")  
           props.send2ParentEdit(users_fromedit)
-          setUsers_load(users_fromedit)
+          setUsers_load([...users_fromedit])
         
       }
       function editUser_fun (e){
@@ -67,7 +67,7 @@ export default function SystemAdmin(props) {
      }
      function deleteUser (e){
       let userEmail = e.currentTarget.className;
-      props.send2ParentDelete(userEmail)
+      setUsers_load(props.send2ParentDelete(userEmail))
 
      }
     return (
@@ -112,6 +112,7 @@ export default function SystemAdmin(props) {
 
         {editComp}
        </>
-        //edituser....
+        // להוסיף כפתור של חזרה לlogin??
+
       );
     }
