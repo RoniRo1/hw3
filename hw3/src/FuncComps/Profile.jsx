@@ -1,12 +1,15 @@
+import { useState, useEffect } from "react";
+import EditDetails from "./EditDetails";
+import { useNavigate } from 'react-router-dom';
+//mui
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
-import { useState, useEffect } from "react";
-import EditDetails from "./EditDetails";
-import { useNavigate } from 'react-router-dom';
+
+
 export default function Profile(props) {
   const [user, setUser] = useState(props.user);
   const [editComp, setEditComp] = useState("");
@@ -23,13 +26,11 @@ export default function Profile(props) {
   // נלחץ כפתור עריכה ואפשר להציג את הקומפננטה
   function clickEdit() {
     setEditComp(
-      <div>
         <EditDetails
           load_user={user}
           send2ParentEdit={showEditDetails}
           parent={"profile"}
         />
-      </div>
     );
   }
 
@@ -41,8 +42,10 @@ export default function Profile(props) {
   }
 
   return (
-    <div style={{ direction: "rtl", margin: "0 auto" }}>
-      <Card sx={{ minWidth: 350 }} style={{ textAlign: "right" }}>
+ <div style={{ direction: "rtl", margin: "0 auto", float:"right"}}> 
+<Grid container spacing={2}>
+        <Grid item xs={6}>
+      <Card  sx={{ width:500}} style={{ textAlign: "right" }}>
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={4}>
@@ -73,12 +76,14 @@ export default function Profile(props) {
             </Grid>
           </Grid>
         </CardContent>
-      </Card>
-
-      {/*       קומפונטטת עריכה
-       */}
-
+      </Card></Grid>
+     
+      {/*קומפונטטת עריכה*/}
+       
+      <Grid item xs={6}>
       {editComp}
-    </div>
+       </Grid>
+ </Grid>
+  </div>
   );
 }

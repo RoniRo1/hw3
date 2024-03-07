@@ -1,12 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-
+//mui
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
-import { Input, checkboxClasses } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
@@ -65,7 +64,8 @@ export default function Register(props) {
   
   const [errors, setErrors] = useState({ ...error });
   const [password2, setPassword2] = useState({});
-  
+  const [users_load, setUsers_load] = useState(props.load_users)
+  const [emailError, setemailError] = useState("")
 
  
 
@@ -74,47 +74,58 @@ export default function Register(props) {
   
     let arr = { ...errors }, counter = 0;
 
-    //לבדוק האם קיים יוזר?
+   //שם פרטי
     if (!/^[a-zA-Z]+$/.test(userArr.firstName)|| userArr.firstName == "") arr.firstName = "visible";
     else {
       arr.firstName = "hidden";
       counter++;
     }
-
+    //שם משפחה
     if (!/^[a-zA-Z]+$/.test(userArr.lastName) || userArr.lastName == "")
       arr.lastName = "visible";
     else {
       arr.lastName = "hidden";
       counter++;
     }
-
+    //מייל תקין
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[com]{3}$/.test(userArr.email) || userArr.email == "" )
-      arr.email = "visible";
+     {setemailError("example@example.com");
+      
+      arr.email = "visible";}
     else {
-      arr.email = "hidden";
+        // משתמש קיים
+      if(users_load.find(item => item.email == userArr.email) !=undefined){
+        setemailError("user already exists");
+        arr.email = "visible";
+      }
+      else {  arr.email = "hidden";
       counter++;
+        
     }
-
+   
+     
+    }
+    //שם משתמש
     if ( !/^[a-zA-Z0-9!@#$%^&*()_></.']{1,60}$/.test(userArr.username) || userArr.username == "")
       arr.username = "visible";
     else {
       arr.username = "hidden";
       counter++;
     }
-
-    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[<>.,{}!@#$%^&*()_?]).{7,12}$/.test( userArr.password) ||userArr.password == "")
+    //סיסמה
+    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[<>.,{}!@#$%^&*()_?/\\+=]).{7,12}$/.test( userArr.password) ||userArr.password == "")
       arr.password = "visible";
     else {
       arr.password = "hidden";
       counter++;
     }
-
+    //סיסמה זהה
     if (password2 != userArr.password) arr.password2 = "visible";
     else {
       arr.password2 = "hidden";
       counter++;
     }
-
+    //רחוב
     if (!/^[\u0590-\u05FF ]+$/.test(userArr.street) || userArr.street == "")
       arr.street = "visible";
     else {
@@ -133,20 +144,20 @@ export default function Register(props) {
       userArr.birthDateStr= dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
       counter++;
     }
-
+    //מספר בית
     if (!/^[1-9]+[0-9]*$/.test(userArr.house) || userArr.house == "")
       arr.house = "visible";
     else {
       arr.house = "hidden";
       counter++;
     }
-
+    //תמונה
     if (userArr.img == "") arr.img = "visible";
     else {
       arr.img = "hidden";
       counter++;
     }
-
+    //עיר
     if (userArr.city == "") arr.city = "visible";
     else {
       arr.city = "hidden";
@@ -157,19 +168,11 @@ export default function Register(props) {
     
     // אם כל הנתונים שהוכנסו תקינים
     if (counter == 11) { 
-     // users_load = [...users_load, { ...userArr }];
-     // localStorage.setItem("Users_load", JSON.stringify(users_load));
      props.sendUser(userArr)
      navigate('/')
     }
   }
 
-
- /*  useEffect(() => {
-    //if (localStorage.getItem("Users_load") != null) {
-     // users_load = JSON.parse(localStorage.getItem("Users_load"));
-    }
-  }); */
 
   return (
     <div>
@@ -212,7 +215,7 @@ export default function Register(props) {
               onChange={(e) => (userArr.email = e.target.value)}
             />
             <Alert severity="error" style={{ visibility: errors.email }}>
-              example@example.com
+            {emailError}
             </Alert>
           </Grid>
 
@@ -235,8 +238,8 @@ export default function Register(props) {
               required
               fullWidth
               label=" Password"
-              //autoComplete="new-password"
-              onBlur={(e) => (userArr.password = e.target.value)}
+              type='password'      
+             onBlur={(e) => (userArr.password = e.target.value)}
             />
             <Alert severity="error" style={{ visibility: errors.password }}>
               Need to contain upper letter, number and special character and
@@ -250,6 +253,7 @@ export default function Register(props) {
               required
               fullWidth
               label="Confirm Password"
+              type='password'  
               onBlur={(e) => setPassword2(e.target.value)}
             />
             <Alert severity="error" style={{ visibility: errors.password2 }}>
@@ -295,6 +299,7 @@ export default function Register(props) {
               required
               fullWidth
               label="house"
+              type='number'
               onChange={(e) => (userArr.house = e.target.value)}
             />
 
@@ -322,7 +327,6 @@ export default function Register(props) {
 
                   let reader = new FileReader();
                   reader.addEventListener("load", () => {
-                    // convert image file to base64 string and save to localStorage
                     userArr.img = reader.result;
                   });
                   if (imgFromInput) {

@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import './App.css'
@@ -30,7 +30,7 @@ function App() {
   function loadCurrent (user){
     setCurrent(user);
   }
-
+// מחיקה של יוזר
   function deleteUser (userEmail){
     let index = users.findIndex((x)=> x.email==userEmail)
     users.splice(index,1);
@@ -42,28 +42,14 @@ function App() {
       setUsers([...users_load])
 
   }
-  
+  //עריכה של יוזר
   function editCurrentUser (users_load,user){
 
     setCurrent(user);
     setUsers([...users_load])
 
   }
- //.........................................................
-  // כרגע אין טעם 
- /*  useEffect (()=>{
-
-    //  if (localStorage.getItem("Users") != null) 
-    //setUsers(JSON.parse(localStorage.getItem("Users")));
-      
-      return () => {
-    
-      console.log("bye")
-      }
-    }
-  ,[])
-  
- */
+ //........................................................
  
   // הטענה של הלוקל סטורג
   useEffect (()=>{
@@ -81,7 +67,7 @@ function App() {
     
     <Routes>
         <Route path="/" element={<LogIn load_users={users} sendCutrrent2Parent={loadCurrent}/>} />
-        <Route path="/register" element={<Register sendUser={loadUsers}/>} />
+        <Route path="/register" element={<Register load_users={users} sendUser={loadUsers}/>} />
         <Route path="/systemAdmin" element={<SystemAdmin load_users={users} send2ParentDelete={deleteUser} send2ParentEdit={editUsers}/>} />
         <Route path="/profile" element={<Profile user={currentUser} send2ParentEdit={editCurrentUser}/>} />
       </Routes>

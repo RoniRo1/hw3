@@ -1,18 +1,16 @@
+import * as React from "react";
+import { useState, useEffect } from "react";
+//mui
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
-import * as React from "react";
 import Grid from "@mui/material/Grid";
-import { Input, checkboxClasses } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 
-
 // כפתור העלאת תמונה
-
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -62,48 +60,41 @@ export default function EditDetails(props) {
     console.log(userArr)
     let arr = { ...values },
       counter = 0;
-    //לבדוק האם קיים יוזר?
-    if (!/^[a-zA-Z]+$/.test(userArr.firstName)|| userArr.firstName == "") arr.firstName = "visible";
+
+    //שם פרטי
+      if (!/^[a-zA-Z]+$/.test(userArr.firstName)|| userArr.firstName == "") arr.firstName = "visible";
     else {
       arr.firstName = "hidden";
       counter++;
     }
-
+   //שם משפחה
     if (!/^[a-zA-Z]+$/.test(userArr.lastName) || userArr.lastName == "")
       arr.lastName = "visible";
     else {
       arr.lastName = "hidden";
       counter++;
     }
-
-    if (
-      !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[com]{3}$/.test(userArr.email) ||   userArr.email == "")
-      arr.email = "visible";
-    else {
-      arr.email = "hidden";
-      counter++;
-    }
-
+    //שם משתמש
     if ( !/^[a-zA-Z0-9!@#$%^&*()_></.']{1,60}$/.test(userArr.username) ||userArr.username == ""  )
       arr.username = "visible";
     else {
       arr.username = "hidden";
       counter++;
     }
-
-    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[<>.,{}!@#$%^&*()_?]).{7,12}$/.test(userArr.password ) || userArr.password == ""  )
+  //סיסמה
+    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[<>.,{}!@#$%^&*()/\\+=_?]).{7,12}$/.test(userArr.password ) || userArr.password == ""  )
       arr.password = "visible";
     else {
       arr.password = "hidden";
       counter++;
     }
-
+    //אישור סיסמה
     if (password2 != userArr.password) arr.password2 = "visible";
     else {
       arr.password2 = "hidden";
       counter++;
     }
-
+    //רחוב 
     if (!/^[\u0590-\u05FF ]+$/.test(userArr.street) || userArr.street == "")
       arr.street = "visible";
     else {
@@ -122,29 +113,30 @@ export default function EditDetails(props) {
       userArr.birthDateStr= dt.getDate() + " ב" + (getMonthName(dt.getMonth())) + " " + dt.getFullYear();
       counter++;
     }
-
+    //מספר בית
     if (!/^[1-9]+[0-9]*$/.test(userArr.house) || userArr.house == "")
       arr.house = "visible";
     else {
       arr.house = "hidden";
       counter++;
     }
-
+    //תמונה
     if (userArr.img == "") arr.img = "visible";
     else {
       arr.img = "hidden";
       counter++;
     }
 
+    //עיר
     if (userArr.city == "") arr.city = "visible";
     else {
       arr.city = "hidden";
       counter++;
     }
-
+    //מציגים הודעות שגיאה אם יש
     setValues(arr);
-
-    if (counter == 11) {
+    //   אם הכל תקין
+    if (counter == 10) {
      
         let count=0;
         users_load.find(function (x) {
@@ -169,6 +161,8 @@ export default function EditDetails(props) {
    
     
   }
+
+  //טוענת את המערך משתמשים
     useEffect(() => {
     if (localStorage.getItem("Users") != null) {
       users_load = JSON.parse(localStorage.getItem("Users"));
@@ -176,9 +170,10 @@ export default function EditDetails(props) {
   });
 
   return (
+
     <div style={{ direction: "ltr", visibility:visEdit}}>
      
-      <Box   fullWidth xs={{ mt: 10}}>
+      <Box   xs={{ mt: 10}}>
       
         <h1 style={{ width: "60%" }}>Edit Deatils</h1>
 
@@ -217,12 +212,11 @@ export default function EditDetails(props) {
             <TextField
               fullWidth
               label={"email"}
-              onChange={(e) => (userArr.email = e.target.value)}
               defaultValue={user.email}
               disabled
             />
             <Alert severity="error" style={{ visibility: values.email }}>
-               example@example.com
+
             </Alert>
           </Grid>
 
@@ -245,8 +239,8 @@ export default function EditDetails(props) {
             <TextField
               required
               fullWidth
+              type='password'  
               label=" Password"
-              autoComplete="new-password"
               defaultValue={user.password}
               onBlur={(e) => (userArr.password = e.target.value)}
             />
@@ -261,6 +255,7 @@ export default function EditDetails(props) {
             <TextField
               required
               fullWidth
+              type='password'  
               label="Confirm Password"
               onBlur={(e) => setPassword2(e.target.value)}
             />
@@ -307,6 +302,7 @@ export default function EditDetails(props) {
               required
               fullWidth
               label="house"
+              type='number'  
               onChange={(e) => (userArr.house = e.target.value)}
               defaultValue={user.house}
             />

@@ -1,9 +1,11 @@
-  import Alert from "@mui/material/Alert";
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+//mui
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+
 
 export default function LogIn(props) {
  
@@ -24,7 +26,6 @@ export default function LogIn(props) {
   const [values, setValues] = useState({ ...arr });
   const [userState, setUser] = useState({ ...user });
   const navigate = useNavigate();
-  //users_load = JSON.parse(localStorage.getItem("Users_load"));
 
   function loginUser() { 
     
@@ -35,11 +36,9 @@ export default function LogIn(props) {
       console.log("אדמין")
       navigate('/systemAdmin')
     }
-   // console.log(users_load.find((user)=> user.username==userState.username))
    
     let user = users_load.find((x)=> x.username==userState.username)
     
-  //  if (users_load.find((x)=> x.username=useState.username)) {
   
   
   if (user!=undefined) {
@@ -63,7 +62,7 @@ export default function LogIn(props) {
       <h1>Log In</h1>
       <br />
       {/*שם משתמש*/}
-      <Grid item xs={8}>
+      <Grid item xs={10}>
         <TextField
           required
           fullWidth
@@ -75,18 +74,19 @@ export default function LogIn(props) {
         </Alert>{" "}
       </Grid>
        {/*סיסמה*/}
-      <Grid item xs={8}>
+      <Grid item xs={10}>
         <TextField
           required
           fullWidth
           label="password"
+          type="password"
           onChange={(e) => (userState.password = e.target.value)}
         />
         <Alert severity="error" style={{ visibility: values.password }}>
           סיסמה לא נכונה
         </Alert>{" "}
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={10}>
         <Button
           type="submit"
           fullWidth
@@ -96,9 +96,8 @@ export default function LogIn(props) {
         >
           Log In
         </Button>
-        {/* להוסיף כפתור מעבר להרשמה */}
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={10}>
         <Button
           type="submit"
           fullWidth
@@ -108,7 +107,6 @@ export default function LogIn(props) {
         >
           Register
         </Button>
-        {/* להוסיף כפתור מעבר להרשמה */}
       </Grid>
     </>
   );
