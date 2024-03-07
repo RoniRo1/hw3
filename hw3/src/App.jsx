@@ -54,7 +54,6 @@ function App() {
   // הטענה של הלוקל סטורג
   useEffect (()=>{
   localStorage.setItem("Users", JSON.stringify(users));
-  //navigate('/')
    },[users])
 
   // הטענה של יוזר מחובר 
