@@ -27,7 +27,7 @@ export default function EditDetails(props) {
  //  מקבל יוזר מהאבא (פרופיל ובהמשך מהאדמין) 
   let user =props.load_user;
   // מערך ערים לכפתור
-  let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
+  let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים", "פתח תקווה"];
   let visEdit = props.visEdit
  
   // מערך להציג פסקת שגיאה
@@ -57,7 +57,6 @@ export default function EditDetails(props) {
   // לחיצה על כתפור הרשמה
   function editUser() {
     
-    console.log(userArr)
     let arr = { ...values },
       counter = 0;
 

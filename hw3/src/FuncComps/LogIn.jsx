@@ -27,19 +27,18 @@ export default function LogIn(props) {
   const [userState, setUser] = useState({ ...user });
   const navigate = useNavigate();
 
+  //כניסה
   function loginUser() { 
     
-
+//בדיקה האם אדמין
     if (userState.username=="admin" && userState.password=="ad12343211ad"){
 
       //מעבר לאדמין
       console.log("אדמין")
       navigate('/systemAdmin')
     }
-   
-    let user = users_load.find((x)=> x.username==userState.username)
-    
-  
+   //בודק האם המייל קיים
+  let user = users_load.find((x)=> x.username==userState.username)
   
   if (user!=undefined) {
      
@@ -51,7 +50,9 @@ export default function LogIn(props) {
       } else {
         arr.password = "visible";
       }
-    } else {
+    } 
+    //אם לא מצא מייל מציג שאין משתמש כזה
+    else {
       arr.username = "visible";
     }
     setValues({ ...arr });

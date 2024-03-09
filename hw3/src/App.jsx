@@ -22,7 +22,7 @@ function App() {
   //..................................................
   // הטענת יוזרים מההרשמה 
   function loadUsers (user){
-    console.log(user)
+   
      setUsers([...users,user]);
   }
 
@@ -32,10 +32,9 @@ function App() {
   }
 // מחיקה של יוזר
   function deleteUser (userEmail){
-    let index = users.findIndex((x)=> x.email==userEmail)
-    users.splice(index,1);
-    setUsers([...users])
-    return users;
+    let usersNew = users.filter(item => item.email !=userEmail)
+    setUsers([...usersNew])
+    return usersNew;
   }
   function editUsers (users_load){
 

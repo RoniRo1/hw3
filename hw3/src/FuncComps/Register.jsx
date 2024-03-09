@@ -29,7 +29,7 @@ export default function Register(props) {
  
   const navigate = useNavigate();
   // מערך ערים 
-  let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים"];
+  let citys = ["ראש העין", "תל אביב", "חיפה", "אשדוד", "ירושלים", "פתח תקווה"];
   //הכנת מערך ליוזר
   let user = {
     firstName: "",

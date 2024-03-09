@@ -76,7 +76,7 @@ export default function SystemAdmin(props) {
      // נלחץ כפתור מחיקת משתמש
      function deleteUser (e){
       setEditComp("")  
-      let userEmail = e.currentTarget.className;
+      let userEmail = e.currentTarget.id;
       // שולחת לאבא את המייל ומקבלת ממנו בחזרה את הרשימת משתמשים המעודכנת 
       setUsers_load(props.send2ParentDelete(userEmail))
 
