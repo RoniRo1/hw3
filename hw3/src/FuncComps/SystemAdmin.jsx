@@ -126,7 +126,7 @@ export default function SystemAdmin(props) {
             </TableBody>
           </Table>
         </TableContainer>
-
+                {/*     קומפ עריכת פרטים */}
         {editComp}
        </>
         
